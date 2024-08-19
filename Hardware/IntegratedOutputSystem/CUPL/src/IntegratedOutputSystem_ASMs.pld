@@ -1,0 +1,115 @@
+Name     template ; 
+PartNo   00 ; 
+Date     10/10/10 ;
+Revision 01 ;
+Designer Engineer ;
+Company  None ;
+Assembly None ; 
+Location  ;
+Device   v750c ;
+
+/* Start Here */
+
+/* Input */
+
+PIN 1 = Osc;
+PIN 2 = SCLK;
+PIN 3 = SDX;
+PIN 5 = Fsh;
+PIN 6 = Qd0;
+PIN 9 = pFlag;
+PIN 10 = dFlag;
+PIN 11 = RXerror;
+
+/* Output */
+
+PIN 14 = WrL;
+PIN 15 = WrD;
+PIN 20 = wr;
+PIN 21 = init;
+PIN 23 = busy;
+PIN [16..18] = [Qss0..2];
+
+PINNODE [25..26] = [Qs0..1];
+PINNODE [28..30] = [Qds0..2];
+
+/* Serial Control */
+/* Frist Module */
+
+[Qs0..1].AR = 'b'0;
+[Qs0..1].SP = 'b'0;
+[Qs0..1].CKMUX = Osc;
+
+sequence [Qs0..1]{
+	present 0
+		if SDX & !SCLK next 1;
+		default next 0;
+	present 1
+		if SCLK next 0;
+		if !SDX & !SCLK next 2;
+		default next 1;
+	present 2
+		out start;
+		next 0;
+}
+
+/* Second Module */
+
+[Qss0..2].AR = 'b'0;
+[Qss0..2].SP = 'b'0;
+[Qss0..2].CK = !Osc;
+
+sequence [Qss0..2]{
+	present 0
+		if start next 1;
+		if !start next 0;
+	present 1
+		out init;
+		next 2;
+	present 2
+		out wr;
+		if start next 1;
+		if !start & !dFlag next 2; 
+		if !start & dFlag next 3; 
+	present 3
+		if start next 1;
+		if !start & !pFlag next 3; 
+		if !start & pFlag & !RXerror next 4;
+		default next 0; 
+	present 4
+		out busy, DXval;
+		if accept next 5;
+		if !accept next 4;
+	present 5
+		if accept next 5;
+		if !accept next 0;
+}
+
+/* Dispatcher */
+
+[Qds0..2].AR = 'b'0;
+[Qds0..2].SP = 'b'0;
+[Qds0..2].CKMUX = Osc;
+
+sequence [Qds0..2]{
+	present 0
+		if !DXval next 0;
+		if DXval & Qd0 next 1; /* LCD */
+		if DXval & !Qd0 next 2; /* Dispense */
+	present 1 /* LCD */
+		out WrL;
+		next 4;
+	present 2 /* Dispense */
+		out WrD;
+		if Fsh next 3;
+		default next 2;
+	present 3
+		if Fsh next 3;
+		default next 4;
+	present 4
+		out accept;
+		if DXval next 4;
+		default next 0;
+}
+
+

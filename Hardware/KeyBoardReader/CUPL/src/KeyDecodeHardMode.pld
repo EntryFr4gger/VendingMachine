@@ -1,0 +1,85 @@
+Name     template ; 
+PartNo   00 ; 
+Date     10/10/10 ;
+Revision 01 ;
+Designer Engineer ;
+Company  None ;
+Assembly None ; 
+Location  ;
+Device   v750c ;
+
+/* Start Here */
+
+/* Input */
+PIN 1 = Osc;
+PIN 2 = DAC;
+PIN [3..6] = [PENC0..3];
+
+/* Output */
+PIN [16..14] = [DEC0..2];
+PIN [22..23] = [Qc0..1];
+PIN 21 = DAV;
+
+PIN [19..20] = [Q0..1];/* PINNODE [25..28] */
+PIN [17..18] = [Q2..3];
+
+
+/* Key Scan */
+
+/* Counter */
+
+LimitCounter = !Q0 & Q1 & KscanCounter;
+
+[Q0..1].AR = 'b'0;
+[Q0..1].SP = 'b'0;
+[Q0..1].CK = !Osc;
+
+D0 = (KscanCounter $ Q0) & !LimitCounter;
+D1 = ((KscanCounter & Q0) $ Q1) & !LimitCounter;
+
+[Q0..1].D = [D0..1];
+
+
+/* Penc */
+
+Kpress = !(PENC0 & PENC1 & PENC2 & PENC3);
+
+[Q2..3].AR = 'b'0;
+[Q2..3].SP = 'b'0;
+[Q2..3].CK = KscanRegister;
+
+Dp2 = !(PENC1 & PENC3);
+Dp3 = !(PENC2 & PENC3);
+
+[Q2..3].D = [Dp2..3];
+
+/* Dec */
+
+DEC0 = !(!Q0 & !Q1);
+DEC1 = !(Q0 & !Q1);
+DEC2 = !(!Q0 & Q1);
+
+
+/* Key Decode */
+
+[Qc0..1].AR = 'b'0;
+[Qc0..1].SP = 'b'0;
+[Qc0..1].CKMUX = Osc;
+
+sequence [Qc0..1]{
+	present 0
+		out KscanCounter;
+		if Kpress next 1;
+		if !Kpress next 0;
+	present 1
+		out KscanRegister;
+		default next 2;
+	present 2
+		out DAV;
+		if DAC next 3;
+		if !DAC next 2;
+	present 3
+		if !DAC & !Kpress next 0;
+		default next 3;
+}
+

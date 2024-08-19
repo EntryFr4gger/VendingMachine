@@ -1,0 +1,58 @@
+(ExpressProject "LCD"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (NoModify)
+    (File ".\lcd.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x"))
+  (Folder "Outputs")
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (LCD_2_16
+      (FullPartName "LCD_2_16.Normal")
+      (LibraryName "C:\USERS\PEDRO\DOWNLOADS\ISEL_LIB.OLB")
+      (DeviceIndex "0"))
+    (PORTLEFT-L
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (PORTRIGHT-R
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (PORTRIGHT-L
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (GND_POWER
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (RESISTOR
+      (FullPartName "RESISTOR.Normal")
+      (LibraryName
+         "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\DISCRETE.OLB")
+      (DeviceIndex "0"))
+    (VCC_BAR
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\lcd.dsn")
+      (Select "Referenced Projects"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 200 0 235"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 104 1200 104 378")
+        (Scroll "192 351")
+        (Zoom "130")
+        (Occurrence "/"))
+      (Path "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LCD.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))

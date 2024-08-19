@@ -1,0 +1,60 @@
+(ExpressProject "IOS"
+  (ProjectVersion "19981106")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (NoModify)
+    (File ".\ios.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x"))
+  (Folder "Outputs")
+  (Folder "Referenced Projects")
+  (PartMRUSelector
+    (PORTRIGHT-R
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (PORTLEFT-L
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (PORTLEFT-R
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (VCC_BAR
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (GND
+      (LibraryName "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (ATF750C
+      (FullPartName "ATF750C.Normal")
+      (LibraryName "C:\USERS\PEDRO\DOWNLOADS\ISEL_LIB.OLB")
+      (DeviceIndex "0"))
+    (ATF22V10C
+      (FullPartName "ATF22V10C.Normal")
+      (LibraryName "C:\USERS\PEDRO\DOWNLOADS\ISEL_LIB.OLB")
+      (DeviceIndex "0"))
+    (74574
+      (FullPartName "74574.Normal")
+      (LibraryName "C:\USERS\PEDRO\DOWNLOADS\ISEL_LIB.OLB")
+      (DeviceIndex "0")))
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Select "Design Resources"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 200 0 235"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 52 1148 52 326")
+        (Scroll "-39 51")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path "C:\ORCAD\ORCAD_16.5_LITE\TOOLS\CAPTURE\IOS.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))

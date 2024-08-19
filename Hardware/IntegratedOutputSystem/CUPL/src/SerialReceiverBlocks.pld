@@ -1,0 +1,76 @@
+Name     template ; 
+PartNo   00 ; 
+Date     10/10/10 ;
+Revision 01 ;
+Designer Engineer ;
+Company  None ;
+Assembly None ; 
+Location  ;
+Device   v750c ;
+
+/* Start Here */
+
+/* Input */
+
+PIN 1 = SCLK;
+PIN 3 = SDX;
+PIN 4 = init;
+PIN 5 = wr;
+
+/* Output */
+
+PIN 14 = RXerror;
+PIN 15 = dFlag;
+PIN 16 = pFlag;
+PIN [18..23] = [Qd0..5];
+
+PINNODE [30..32] = [Qc0..2];
+PINNODE 33 = Qp0;
+
+
+/* Counter */
+
+[Qc0..2].AR = init;
+[Qc0..2].SP = 'b'0;
+[Qc0..2].CKMUX = SCLK;
+
+C0 = ('b'1 $ Qc0);
+C1 = (Qc0 $ Qc1);
+C2 = ((Qc0 & Qc1) $ Qc2);
+
+[Qc0..2].D = [C0..2];
+
+/* Decoder */
+
+Enable = wr;
+
+DEC0 = (!Qc0 & !Qc1 & !Qc2) & Enable;
+DEC1 = (Qc0 & !Qc1 & !Qc2) & Enable;
+DEC2 = (!Qc0 & Qc1 & !Qc2) & Enable;
+DEC3 = (Qc0 & Qc1 & !Qc2) & Enable;
+DEC4 = (!Qc0 & !Qc1 & Qc2) & Enable;
+DEC5 = (Qc0 & !Qc1 & Qc2) & Enable;
+
+/* Flip-Flops */
+
+[Qd0..5].AR = 'b'0;
+[Qd0..5].SP = 'b'0;
+[Qd0..5].CKMUX = SCLK;
+
+[Qd0..5].D = [DEC0..5] & SDX # ![DEC0..5] & [Qd0..5];
+
+/* Parity Check */
+
+Qp0.AR = init;
+Qp0.SP = 'b'0;
+Qp0.CKMUX = SCLK;
+
+Qp0.D = Qp0 $ SDX;
+RXerror = !Qp0;
+
+/* Flags */
+
+dFlag = (Qc0 & !Qc1 & Qc2) & !Qd0 # (!Qc0 & Qc1 & Qc2) & Qd0;
+
+pFlag = (!Qc0 & Qc1 & Qc2) & !Qd0 # (Qc0 & Qc1 & Qc2) & Qd0;
+
