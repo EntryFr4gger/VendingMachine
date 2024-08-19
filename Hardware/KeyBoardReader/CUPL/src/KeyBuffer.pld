@@ -1,0 +1,61 @@
+Name     template ; 
+PartNo   00 ; 
+Date     10/10/10 ;
+Revision 01 ;
+Designer Engineer ;
+Company  None ;
+Assembly None ; 
+Location  ;
+Device   v750c ;
+
+/* Start Here */
+
+/* Input */
+PIN 1 = Osc;
+PIN 2 = ACK;
+PIN 3 = DAV;
+PIN [5..8] = [D0..3];
+
+/* Output */
+PIN 14 = DAC;
+PIN [20..17] = [Q0..3]; 
+PIN 23 = Dval;
+PINNODE [30..31] = [Qc0..1];
+
+/* Key Buffer Control */
+
+[Qc0..1].AR = 'b'0;
+[Qc0..1].SP = 'b'0;
+[Qc0..1].CK = !Osc;
+
+sequence [Qc0, Qc1]{
+	present 0
+		if DAV  next 1;
+		default next 0;
+	present 1
+		out WR;
+		default next 2;
+	present 2
+		out DAC;
+		if DAV next 2;
+		if !DAV next 3;
+	present 3
+		out Dval;
+		if !ACK next 3;
+		if ACK next 4;
+	present 4
+		if ACK next 4;
+		if !ACK next 0;
+}
+
+
+/* Output Register */
+
+[Q0..3].AR = 'b'0;
+[Q0..3].SP = 'b'0;
+[Q0..3].CKMUX = WR;
+
+[Dr0..3] = [D0..3];
+
+[Q0..3].D = [Dr0..3];
+
